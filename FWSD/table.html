@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Semester Grade Sheet</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+}
+.container{
+    width:500px;
+    margin:50px auto;
+    padding:25px;
+    background:white;
+    text-align:center;
+    border-radius:10px;
+}
+input{
+    width:90%;
+    padding:10px;
+    margin:8px;
+}
+button{
+    padding:10px 25px;
+    background:#333;
+    color:white;
+    border:0;
+}
+#result{
+    margin-top:20px;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>SEMESTER GRADE SHEET</h2>
+
+<input type="text" id="name" placeholder="Enter Name">
+<input type="text" id="dept" placeholder="Enter Department">
+<input type="number" id="mark" placeholder="Enter Mark">
+
+<button onclick="grade()">Calculate Grade</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+function grade(){
+
+let name=document.getElementById("name").value;
+let dept=document.getElementById("dept").value;
+let mark=Number(document.getElementById("mark").value);
+let g;
+
+if(mark>=90)
+    g="A+";
+else if(mark>=80)
+    g="A";
+else if(mark>=70)
+    g="B";
+else if(mark>=60)
+    g="C";
+else if(mark>=50)
+    g="D";
+else
+    g="F";
+
+document.getElementById("result").innerHTML=
+"Name: "+name+"<br>"+
+"Department: "+dept+"<br>"+
+"Mark: "+mark+"<br>"+
+"Grade: "+g;
+}
+</script>
+
+</body>
+</html>

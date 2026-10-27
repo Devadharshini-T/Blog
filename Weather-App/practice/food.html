@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Foodie - Food Delivery App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        /* ================= LOGIN PAGE ================= */
+
+        #loginPage {
+            height: 100vh;
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 380px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #ff5722;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .login-box label {
+            display: block;
+            text-align: left;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #e64a19;
+        }
+
+        #loginMessage {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+
+        /* ================= MAIN APP ================= */
+
+        #appPage {
+            display: none;
+        }
+
+        .navbar {
+            background: #ff5722;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+        }
+
+        .nav-buttons button {
+            padding: 10px 18px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cart-btn {
+            background: white;
+            color: #ff5722;
+        }
+
+        .logout-btn {
+            background: #333;
+            color: white;
+        }
+
+
+        /* ================= MENU ================= */
+
+        .menu-section {
+            padding: 35px;
+        }
+
+        .menu-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .food-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .food-image {
+            height: 150px;
+            background: #ffe0b2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+        }
+
+        .food-card h3 {
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .food-card p {
+            margin: 10px;
+            color: #777;
+        }
+
+        .price {
+            color: #ff5722 !important;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .add-btn {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #e64a19;
+        }
+
+
+        /* ================= CART ================= */
+
+        #cartPage {
+            display: none;
+            padding: 35px;
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .cart-item button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff5722;
+            margin-top: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #555;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= DELIVERY PAGE ================= */
+
+        #deliveryPage {
+            display: none;
+            padding: 35px;
+        }
+
+        .delivery-box {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .delivery-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .delivery-box label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .delivery-box input,
+        .delivery-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .delivery-box textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .place-order {
+            width: 100%;
+            padding: 14px;
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ================= SUCCESS ================= */
+
+        #successPage {
+            display: none;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #e8f5e9;
+        }
+
+        .success-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .success-box h1 {
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+
+        .success-box p {
+            margin-bottom: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 900px) {
+            .food-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .food-container {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 15px;
+            }
+
+            .menu-section,
+            #cartPage,
+            #deliveryPage {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ================= LOGIN PAGE ================= -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <h1>🍔 Foodie</h1>
+
+        <p>Delicious food delivered to your doorstep</p>
+
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Enter username">
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password">
+
+        <button class="login-btn" onclick="login()">Login</button>
+
+        <div id="loginMessage"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FOOD APP ================= -->
+
+<div id="appPage">
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h1>🍔 Foodie</h1>
+
+        <div class="nav-buttons">
+
+            <button class="cart-btn" onclick="showCart()">
+                🛒 Cart (<span id="cartCount">0</span>)
+            </button>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOD MENU ================= -->
+
+    <div class="menu-section" id="menuPage">
+
+        <h2>🍴 Choose Your Favourite Food</h2>
+
+        <div class="food-container">
+
+
+            <!-- PIZZA -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍕
+                </div>
+
+                <h3>Pizza</h3>
+
+                <p>Cheesy delicious pizza</p>
+
+                <p class="price">₹250</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Pizza',250)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- BURGER -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍔
+                </div>
+
+                <h3>Burger</h3>
+
+                <p>Fresh and tasty burger</p>
+
+                <p class="price">₹150</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Burger',150)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- BIRYANI -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍛
+                </div>
+
+                <h3>Chicken Biryani</h3>
+
+                <p>Hot and spicy biryani</p>
+
+                <p class="price">₹220</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Chicken Biryani',220)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- FRIED RICE -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍚
+                </div>
+
+                <h3>Fried Rice</h3>
+
+                <p>Delicious vegetable fried rice</p>
+
+                <p class="price">₹180</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Fried Rice',180)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- DOSA -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🥞
+                </div>
+
+                <h3>Dosa</h3>
+
+                <p>Crispy South Indian dosa</p>
+
+                <p class="price">₹80</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Dosa',80)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- NOODLES -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍜
+                </div>
+
+                <h3>Noodles</h3>
+
+                <p>Hot and spicy noodles</p>
+
+                <p class="price">₹160</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Noodles',160)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- SANDWICH -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🥪
+                </div>
+
+                <h3>Sandwich</h3>
+
+                <p>Fresh vegetable sandwich</p>
+
+                <p class="price">₹120</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Sandwich',120)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+
+            <!-- ICE CREAM -->
+
+            <div class="food-card">
+
+                <div class="food-image">
+                    🍨
+                </div>
+
+                <h3>Ice Cream</h3>
+
+                <p>Cold and creamy dessert</p>
+
+                <p class="price">₹100</p>
+
+                <button class="add-btn"
+                    onclick="addToCart('Ice Cream',100)">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= CART PAGE ================= -->
+
+    <div id="cartPage">
+
+        <div class="cart-container">
+
+            <button class="back-btn" onclick="showMenu()">
+                ← Back to Menu
+            </button>
+
+            <h2>🛒 Your Cart</h2>
+
+            <div id="cartItems"></div>
+
+            <div class="total">
+                Total: ₹<span id="totalAmount">0</span>
+            </div>
+
+            <button class="checkout-btn"
+                    onclick="showDelivery()">
+                Proceed to Delivery
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DELIVERY PAGE ================= -->
+
+    <div id="deliveryPage">
+
+        <div class="delivery-box">
+
+            <button class="back-btn" onclick="showCart()">
+                ← Back to Cart
+            </button>
+
+            <h2>📦 Delivery Details</h2>
+
+            <label>Full Name</label>
+            <input type="text"
+                   id="fullName"
+                   placeholder="Enter your name">
+
+
+            <label>Phone Number</label>
+            <input type="text"
+                   id="phone"
+                   placeholder="Enter phone number">
+
+
+            <label>Address</label>
+            <textarea id="address"
+                      placeholder="Enter your complete address"></textarea>
+
+
+            <label>City</label>
+            <input type="text"
+                   id="city"
+                   placeholder="Enter city">
+
+
+            <label>Pincode</label>
+            <input type="text"
+                   id="pincode"
+                   placeholder="Enter pincode">
+
+
+            <button class="place-order"
+                    onclick="placeOrder()">
+                Place Order
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= SUCCESS PAGE ================= -->
+
+<div id="successPage">
+
+    <div class="success-box">
+
+        <h1>✅ Order Placed Successfully!</h1>
+
+        <p>
+            Thank you for ordering from Foodie 🍔
+        </p>
+
+        <p>
+            Your food will be delivered soon.
+        </p>
+
+        <button class="place-order"
+                onclick="backToMenu()">
+            Order More Food
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    // Cart array
+    let cart = [];
+
+
+    // LOGIN FUNCTION
+
+    function login() {
+
+        let username =
+            document.getElementById("username").value;
+
+        let password =
+            document.getElementById("password").value;
+
+        let message =
+            document.getElementById("loginMessage");
+
+
+        // Username and password
+        if (username === "foodie" && password === "12345") {
+
+            message.style.color = "green";
+
+            message.innerHTML =
+                "Login successful!";
+
+            setTimeout(function() {
+
+                document.getElementById("loginPage").style.display =
+                    "none";
+
+                document.getElementById("appPage").style.display =
+                    "block";
+
+            }, 500);
+
+        }
+
+        else {
+
+            message.style.color = "red";
+
+            message.innerHTML =
+                "Invalid username or password!";
+
+        }
+
+    }
+
+
+    // LOGOUT
+
+    function logout() {
+
+        cart = [];
+
+        document.getElementById("appPage").style.display =
+            "none";
+
+        document.getElementById("loginPage").style.display =
+            "flex";
+
+        document.getElementById("username").value = "";
+
+        document.getElementById("password").value = "";
+
+        updateCartCount();
+
+    }
+
+
+    // ADD FOOD TO CART
+
+    function addToCart(name, price) {
+
+        cart.push({
+            name: name,
+            price: price
+        });
+
+        updateCartCount();
+
+        alert(name + " added to cart! 🛒");
+
+    }
+
+
+    // UPDATE CART COUNT
+
+    function updateCartCount() {
+
+        document.getElementById("cartCount").innerText =
+            cart.length;
+
+    }
+
+
+    // SHOW CART
+
+    function showCart() {
+
+        document.getElementById("menuPage").style.display =
+            "none";
+
+        document.getElementById("deliveryPage").style.display =
+            "none";
+
+        document.getElementById("cartPage").style.display =
+            "block";
+
+        displayCart();
+
+    }
+
+
+    // DISPLAY CART
+
+    function displayCart() {
+
+        let cartItems =
+            document.getElementById("cartItems");
+
+        let total = 0;
+
+        cartItems.innerHTML = "";
+
+
+        if (cart.length === 0) {
+
+            cartItems.innerHTML =
+                "<p style='text-align:center;'>Your cart is empty 😔</p>";
+
+            document.getElementById("totalAmount").innerText =
+                "0";
+
+            return;
+
+        }
+
+
+        cart.forEach(function(item, index) {
+
+            total = total + item.price;
+
+            cartItems.innerHTML += `
+
+                <div class="cart-item">
+
+                    <div>
+                        <strong>${item.name}</strong>
+                        <br>
+                        ₹${item.price}
+                    </div>
+
+                    <button onclick="removeItem(${index})">
+                        Remove
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+
+        document.getElementById("totalAmount").innerText =
+            total;
+
+    }
+
+
+    // REMOVE ITEM
+
+    function removeItem(index) {
+
+        cart.splice(index, 1);
+
+        updateCartCount();
+
+        displayCart();
+
+    }
+
+
+    // SHOW MENU
+
+    function showMenu() {
+
+        document.getElementById("cartPage").style.display =
+            "none";
+
+        document.getElementById("deliveryPage").style.display =
+            "none";
+
+        document.getElementById("menuPage").style.display =
+            "block";
+
+    }
+
+
+    // SHOW DELIVERY PAGE
+
+    function showDelivery() {
+
+        if (cart.length === 0) {
+
+            alert("Please add food to your cart first!");
+
+            return;
+
+        }
+
+        document.getElementById("cartPage").style.display =
+            "none";
+
+        document.getElementById("deliveryPage").style.display =
+            "block";
+
+    }
+
+
+    // PLACE ORDER
+
+    function placeOrder() {
+
+        let name =
+            document.getElementById("fullName").value;
+
+        let phone =
+            document.getElementById("phone").value;
+
+        let address =
+            document.getElementById("address").value;
+
+        let city =
+            document.getElementById("city").value;
+
+        let pincode =
+            document.getElementById("pincode").value;
+
+
+        if (
+            name === "" ||
+            phone === "" ||
+            address === "" ||
+            city === "" ||
+            pincode === ""
+        ) {
+
+            alert("Please fill all delivery details!");
+
+            return;
+
+        }
+
+
+        document.getElementById("appPage").style.display =
+            "none";
+
+        document.getElementById("successPage").style.display =
+            "flex";
+
+    }
+
+
+    // ORDER MORE FOOD
+
+    function backToMenu() {
+
+        cart = [];
+
+        updateCartCount();
+
+        document.getElementById("successPage").style.display =
+            "none";
+
+        document.getElementById("appPage").style.display =
+            "block";
+
+        document.getElementById("menuPage").style.display =
+            "block";
+
+        document.getElementById("cartPage").style.display =
+            "none";
+
+        document.getElementById("deliveryPage").style.display =
+            "none";
+
+    }
+
+</script>
+
+</body>
+</html>

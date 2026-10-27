@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Foodie App</title>
+
+<style>
+*{
+box-sizing:border-box;
+font-family:Arial
+}
+body{
+margin:0;
+background:#f5f5f5
+ }
+
+.page{
+    width:400px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px #aaa
+}
+
+h1,h2{text-align:center;color:#ff5722}
+
+input,textarea,button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:7px;
+    border:1px solid #ccc
+}
+
+button{
+    background:#ff5722;
+    color:white;
+    border:0;
+    cursor:pointer
+}
+
+.food{
+    display:inline-block;
+    width:45%;
+    margin:2%;
+    padding:15px;
+    background:white;
+    text-align:center;
+    box-shadow:0 2px 8px #ccc;
+    border-radius:10px
+}
+
+#app,#cartPage,#deliveryPage,#successPage{
+    display:none
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="page">
+
+<h1>🍔 Foodie</h1>
+
+<p>Login to order your food</p>
+
+<input type="text" id="usernameInput" placeholder="Username">
+
+<input type="password" id="passwordInput" placeholder="Password">
+
+<button onclick="checkLogin()">Login</button>
+
+<p id="loginMessage"></p>
+
+</div>
+
+
+<!-- MENU -->
+<div id="app">
+
+<h1>🍔 Food Menu</h1>
+
+<div class="food">
+<h2>🍕 Pizza</h2>
+<p>₹250</p>
+<button onclick="addFood('Pizza',250)">Add to Cart</button>
+</div>
+
+<div class="food">
+<h2>🍔 Burger</h2>
+<p>₹150</p>
+<button onclick="addFood('Burger',150)">Add to Cart</button>
+</div>
+
+<div class="food">
+<h2>🍛 Biryani</h2>
+<p>₹220</p>
+<button onclick="addFood('Biryani',220)">Add to Cart</button>
+</div>
+
+<div class="food">
+<h2>🍜 Noodles</h2>
+<p>₹180</p>
+<button onclick="addFood('Noodles',180)">Add to Cart</button>
+</div>
+
+<button onclick="openCart()">🛒 Go to Cart</button>
+
+</div>
+
+
+<!-- CART -->
+<div id="cartPage" class="page">
+
+<h2>🛒 My Cart</h2>
+
+<div id="cartItems"></div>
+
+<h3>Total: ₹<span id="totalPrice">0</span></h3>
+
+<button onclick="openDelivery()">Proceed to Delivery</button>
+
+<button onclick="backToMenu()">Back to Menu</button>
+
+</div>
+
+
+<!-- DELIVERY -->
+<div id="deliveryPage" class="page">
+
+<h2>📦 Delivery Details</h2>
+
+<input id="customerName" placeholder="Full Name">
+
+<input id="phoneNumber" placeholder="Phone Number">
+
+<textarea id="address" placeholder="Delivery Address"></textarea>
+
+<input id="city" placeholder="City">
+
+<input id="pincode" placeholder="Pincode">
+
+<button onclick="placeOrder()">Place Order</button>
+
+</div>
+
+
+<!-- SUCCESS -->
+<div id="successPage" class="page">
+
+<h1>✅ Order Placed!</h1>
+
+<p>Your food will be delivered soon 🍔</p>
+
+<button onclick="backToMenu()">Order More</button>
+
+</div>
+
+
+<script>
+
+let myCart = [];
+let total = 0;
+
+
+/* LOGIN */
+
+function checkLogin(){
+
+    let username =
+        document.getElementById("usernameInput").value;
+
+    let password =
+        document.getElementById("passwordInput").value;
+
+    let message =
+        document.getElementById("loginMessage");
+
+
+    if(username === "foodie" && password === "12345"){
+
+        document.getElementById("loginPage").style.display="none";
+
+        document.getElementById("app").style.display="block";
+
+    }
+    else{
+
+        message.style.color="red";
+        message.innerHTML="❌ Wrong username or password";
+
+    }
+}
+
+
+/* ADD FOOD */
+
+function addFood(foodName,foodPrice){
+
+    myCart.push(foodName);
+
+    total = total + foodPrice;
+
+    alert(foodName + " added to cart 🛒");
+
+}
+
+
+/* CART */
+
+function openCart(){
+
+    document.getElementById("app").style.display="none";
+
+    document.getElementById("cartPage").style.display="block";
+
+    document.getElementById("cartItems").innerHTML =
+        myCart.length > 0
+        ? myCart.join("<br>")
+        : "Cart is empty";
+
+    document.getElementById("totalPrice").innerHTML=total;
+}
+
+
+/* DELIVERY */
+
+function openDelivery(){
+
+    if(myCart.length === 0){
+
+        alert("Please add food to cart first!");
+
+        return;
+    }
+
+    document.getElementById("cartPage").style.display="none";
+
+    document.getElementById("deliveryPage").style.display="block";
+}
+
+
+/* PLACE ORDER */
+
+function placeOrder(){
+ 
+    let name =
+        document.getElementById("customerName").value;
+
+    let phone =
+        document.getElementById("phoneNumber").value;
+
+    let address =
+        document.getElementById("address").value;
+
+    let city =
+        document.getElementById("city").value;
+
+    let pin =
+        document.getElementById("pincode").value;
+
+
+    if(name==="" || phone==="" || address==="" ||
+       city==="" || pin===""){
+
+        alert("Please fill all delivery details!");
+
+        return;
+    }
+
+
+    document.getElementById("deliveryPage").style.display="none";
+
+    document.getElementById("successPage").style.display="block";
+}
+
+
+/* BACK TO MENU */
+
+function backToMenu(){
+
+    document.getElementById("cartPage").style.display="none";
+
+    document.getElementById("deliveryPage").style.display="none";
+
+    document.getElementById("successPage").style.display="none";
+
+    document.getElementById("app").style.display="block";
+}
+
+</script>
+
+</body>
+</html>

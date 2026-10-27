@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Responsive multi-step checkout form">
+    <meta name="author" content="Checkout Form">
+
+    <title>Checkout Form</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="checkout-container">
+
+        <header class="checkout-header">
+            <h1>Checkout</h1>
+            <p>Complete your purchase securely</p>
+        </header>
+
+        <!-- MULTI-STEP PROGRESS BAR -->
+
+        <div class="progress-container">
+
+            <div class="progress-line" id="progressLine"></div>
+
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <span>Billing</span>
+            </div>
+
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <span>Shipping</span>
+            </div>
+
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <span>Payment</span>
+            </div>
+
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <span>Review</span>
+            </div>
+
+        </div>
+
+
+        <!-- CHECKOUT FORM -->
+
+        <form id="checkoutForm" novalidate>
+
+            <!-- ================= BILLING ================= -->
+
+            <section class="form-step active" id="step1">
+
+                <div class="section-heading">
+                    <h2>Billing Information</h2>
+                    <p>Enter your billing details</p>
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="firstName">
+                            First Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            placeholder="Enter first name"
+                            required
+                        >
+
+                        <small class="error" id="firstNameError"></small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastName">
+                            Last Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Enter last name"
+                            required
+                        >
+
+                        <small class="error" id="lastNameError"></small>
+                    </div>
+
+
+                    <div class="form-group full-width">
+                        <label for="email">
+                            Email Address *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@email.com"
+                            required
+                        >
+
+                        <small class="error" id="emailError"></small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phone">
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="9876543210"
+                            maxlength="10"
+                            required
+                        >
+
+                        <small class="error" id="phoneError"></small>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="country">
+                            Country *
+                        </label>
+
+                        <select id="country" name="country" required>
+
+                            <option value="">
+                                Select Country
+                            </option>
+
+                            <option value="India">
+                                India
+                            </option>
+
+                            <option value="USA">
+                                USA
+                            </option>
+
+                            <option value="UK">
+                                United Kingdom
+                            </option>
+
+                            <option value="Canada">
+                                Canada
+                            </option>
+
+                        </select>
+
+                        <small class="error" id="countryError"></small>
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="billingAddress">
+                            Billing Address *
+                        </label>
+
+                        <textarea
+                            id="billingAddress"
+                            name="billingAddress"
+                            placeholder="Enter your billing address"
+                            required
+                        ></textarea>
+
+                        <small class="error" id="billingAddressError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            City *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder="Enter city"
+                            required
+                        >
+
+                        <small class="error" id="cityError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="pincode">
+                            PIN / ZIP Code *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pincode"
+                            name="pincode"
+                            placeholder="Enter PIN code"
+                            required
+                        >
+
+                        <small class="error" id="pincodeError"></small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-container right">
+
+                    <button
+                        type="button"
+                        class="btn next-btn"
+                        data-next="2"
+                    >
+                        Continue to Shipping →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SHIPPING ================= -->
+
+            <section class="form-step" id="step2">
+
+                <div class="section-heading">
+                    <h2>Shipping Information</h2>
+                    <p>Where should we deliver your order?</p>
+                </div>
+
+
+                <div class="shipping-options">
+
+                    <label class="checkbox-label">
+
+                        <input
+                            type="checkbox"
+                            id="sameAddress"
+                        >
+
+                        <span>
+                            Shipping address is the same as billing address
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="shippingName">
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shippingName"
+                            placeholder="Enter full name"
+                            required
+                        >
+
+                        <small class="error" id="shippingNameError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="shippingPhone">
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="shippingPhone"
+                            placeholder="9876543210"
+                            maxlength="10"
+                            required
+                        >
+
+                        <small class="error" id="shippingPhoneError"></small>
+
+                    </div>
+
+
+                    <div class="form-group full-width">
+
+                        <label for="shippingAddress">
+                            Shipping Address *
+                        </label>
+
+                        <textarea
+                            id="shippingAddress"
+                            placeholder="Enter shipping address"
+                            required
+                        ></textarea>
+
+                        <small class="error" id="shippingAddressError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="shippingCity">
+                            City *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shippingCity"
+                            placeholder="Enter city"
+                            required
+                        >
+
+                        <small class="error" id="shippingCityError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="shippingState">
+                            State *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shippingState"
+                            placeholder="Enter state"
+                            required
+                        >
+
+                        <small class="error" id="shippingStateError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="shippingPincode">
+                            PIN / ZIP Code *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="shippingPincode"
+                            placeholder="Enter PIN code"
+                            required
+                        >
+
+                        <small class="error" id="shippingPincodeError"></small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="delivery">
+
+                            Delivery Method *
+
+                        </label>
+
+                        <select id="delivery">
+
+                            <option value="Standard">
+                                Standard Delivery - ₹50
+                            </option>
+
+                            <option value="Express">
+                                Express Delivery - ₹150
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-container">
+
+                    <button
+                        type="button"
+                        class="btn secondary-btn prev-btn"
+                        data-prev="1"
+                    >
+                        ← Back
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn next-btn"
+                        data-next="3"
+                    >
+                        Continue to Payment →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PAYMENT ================= -->
+
+            <section class="form-step" id="step3">
+
+                <div class="section-heading">
+
+                    <h2>Payment Information</h2>
+
+                    <p>
+                        Choose your preferred payment method
+                    </p>
+
+                </div>
+
+
+                <div class="payment-methods">
+
+                    <label class="payment-card">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="card"
+                            checked
+                        >
+
+                        <span>💳 Credit / Debit Card</span>
+
+                    </label>
+
+
+                    <label class="payment-card">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="upi"
+                        >
+
+                        <span>📱 UPI</span>
+
+                    </label>
+
+
+                    <label class="payment-card">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="cod"
+                        >
+
+                        <span>💵 Cash on Delivery</span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- CARD PAYMENT -->
+
+                <div id="cardPayment" class="payment-section">
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+
+                            <label for="cardName">
+                                Name on Card *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cardName"
+                                placeholder="Name on card"
+                            >
+
+                            <small
+                                class="error"
+                                id="cardNameError"
+                            ></small>
+
+                        </div>
+
+
+                        <div class="form-group full-width">
+
+                            <label for="cardNumber">
+                                Card Number *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="cardNumber"
+                                placeholder="1234 5678 9012 3456"
+                                maxlength="19"
+                            >
+
+                            <small
+                                class="error"
+                                id="cardNumberError"
+                            ></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="expiry">
+                                Expiry Date *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="expiry"
+                                placeholder="MM/YY"
+                                maxlength="5"
+                            >
+
+                            <small
+                                class="error"
+                                id="expiryError"
+                            ></small>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="cvv">
+                                CVV *
+                            </label>
+
+                            <input
+                                type="password"
+                                id="cvv"
+                                placeholder="123"
+                                maxlength="3"
+                            >
+
+                            <small
+                                class="error"
+                                id="cvvError"
+                            ></small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPI PAYMENT -->
+
+                <div
+                    id="upiPayment"
+                    class="payment-section hidden"
+                >
+
+                    <div class="form-group">
+
+                        <label for="upiId">
+                            UPI ID *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="upiId"
+                            placeholder="example@upi"
+                        >
+
+                        <small
+                            class="error"
+                            id="upiError"
+                        ></small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COD -->
+
+                <div
+                    id="codPayment"
+                    class="payment-section hidden"
+                >
+
+                    <div class="cod-message">
+
+                        <h3>Cash on Delivery</h3>
+
+                        <p>
+                            Pay when your order is delivered to your
+                            address.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="button-container">
+
+                    <button
+                        type="button"
+                        class="btn secondary-btn prev-btn"
+                        data-prev="2"
+                    >
+                        ← Back
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn next-btn"
+                        data-next="4"
+                    >
+                        Review Order →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ORDER REVIEW ================= -->
+
+            <section class="form-step" id="step4">
+
+                <div class="section-heading">
+
+                    <h2>Order Review</h2>
+
+                    <p>
+                        Check your information before placing the order.
+                    </p>
+
+                </div>
+
+
+                <div class="review-grid">
+
+                    <div class="review-card">
+
+                        <h3>Billing Details</h3>
+
+                        <p id="reviewBilling">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="review-card">
+
+                        <h3>Shipping Details</h3>
+
+                        <p id="reviewShipping">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="review-card">
+
+                        <h3>Payment Method</h3>
+
+                        <p id="reviewPayment">
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ORDER SUMMARY -->
+
+                <div class="order-summary">
+
+                    <h3>Order Summary</h3>
+
+                    <div class="summary-row">
+
+                        <span>Product</span>
+
+                        <span>₹1,500</span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>Shipping</span>
+
+                        <span id="shippingCost">
+                            ₹50
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row total">
+
+                        <span>Total</span>
+
+                        <span id="totalCost">
+                            ₹1,550
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                        >
+
+                        I agree to the terms and conditions *
+
+                    </label>
+
+                    <small
+                        class="error"
+                        id="termsError"
+                    ></small>
+
+                </div>
+
+
+                <div class="button-container">
+
+                    <button
+                        type="button"
+                        class="btn secondary-btn prev-btn"
+                        data-prev="3"
+                    >
+                        ← Back
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn place-order-btn"
+                    >
+                        Place Order ✓
+                    </button>
+
+                </div>
+
+            </section>
+
+        </form>
+
+
+        <!-- SUCCESS MESSAGE -->
+
+        <div
+            id="successMessage"
+            class="success-message hidden"
+        >
+
+            <div class="success-icon">✓</div>
+
+            <h2>Order Placed Successfully!</h2>
+
+            <p>
+                Thank you for your purchase.
+            </p>
+
+            <p>
+                Your order number is:
+                <strong id="orderNumber"></strong>
+            </p>
+
+            <button
+                type="button"
+                class="btn"
+                id="newOrderBtn"
+            >
+                Place Another Order
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

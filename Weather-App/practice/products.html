@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClassiBuy - Buy & Sell Used Products</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:#f4f4f4;
+    color:#333;
+}
+
+header{
+    background:#2874f0;
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{
+    font-size:25px;
+}
+
+header button{
+    padding:10px 20px;
+    border:0;
+    border-radius:5px;
+    cursor:pointer;
+    background:white;
+    color:#2874f0;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:45px 20px;
+    background:#eaf2ff;
+}
+
+.hero h2{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.search{
+    margin:20px auto;
+    max-width:600px;
+    display:flex;
+}
+
+.search input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:5px 0 0 5px;
+    font-size:16px;
+}
+
+.search button{
+    padding:14px 20px;
+    border:0;
+    background:#2874f0;
+    color:white;
+    border-radius:0 5px 5px 0;
+}
+
+.products{
+    padding:35px 7%;
+}
+
+.products h2{
+    margin-bottom:20px;
+}
+
+.product-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 3px 10px #ccc;
+}
+
+.card img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:15px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.price{
+    color:#2874f0;
+    font-size:20px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.card button{
+    width:100%;
+    padding:10px;
+    background:#2874f0;
+    color:white;
+    border:0;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.sell{
+    background:white;
+    padding:30px 7%;
+    margin-top:20px;
+}
+
+.sell h2{
+    margin-bottom:20px;
+}
+
+.sell input,
+.sell select,
+.sell textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.sell button{
+    padding:12px 25px;
+    background:#28a745;
+    color:white;
+    border:0;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>ClassiBuy</h1>
+    <button onclick="showSell()">Sell Product</button>
+</header>
+
+<section class="hero">
+    <h2>Buy & Sell Used Products</h2>
+    <p>Find great products at affordable prices</p>
+
+    <div class="search">
+        <input type="text" id="search" placeholder="Search products..."
+               onkeyup="searchProducts()">
+        <button>🔍 Search</button>
+    </div>
+</section>
+
+<section class="products">
+    <h2>Available Products</h2>
+
+    <div class="product-container" id="productList">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+            <div class="card-content">
+                <h3>Used Smartphone</h3>
+                <p>Good condition smartphone</p>
+                <div class="price">₹12,000</div>
+                <button onclick="buyProduct('Used Smartphone')">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853">
+            <div class="card-content">
+                <h3>Used Laptop</h3>
+                <p>Well maintained laptop</p>
+                <div class="price">₹25,000</div>
+                <button onclick="buyProduct('Used Laptop')">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+            <div class="card-content">
+                <h3>Sports Shoes</h3>
+                <p>Lightly used running shoes</p>
+                <div class="price">₹1,500</div>
+                <button onclick="buyProduct('Sports Shoes')">Buy Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc">
+            <div class="card-content">
+                <h3>Sofa</h3>
+                <p>Used sofa in good condition</p>
+                <div class="price">₹8,000</div>
+                <button onclick="buyProduct('Sofa')">Buy Now</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="sell" id="sellSection">
+
+    <h2>Sell Your Product</h2>
+
+    <input type="text" id="productName" placeholder="Product Name">
+
+    <select id="category">
+        <option>Electronics</option>
+        <option>Furniture</option>
+        <option>Clothing</option>
+        <option>Vehicles</option>
+        <option>Books</option>
+        <option>Others</option>
+    </select>
+
+    <input type="number" id="price" placeholder="Price ₹">
+
+    <textarea id="description"
+              placeholder="Product Description"></textarea>
+
+    <button onclick="sellProduct()">Post Product</button>
+
+</section>
+
+<footer>
+    <p>© 2026 ClassiBuy | Buy & Sell Used Products</p>
+</footer>
+
+<script>
+
+function buyProduct(product){
+    alert("You selected: " + product + "\nSeller contact details will be shown soon!");
+}
+
+function sellProduct(){
+
+    let name = document.getElementById("productName").value;
+    let price = document.getElementById("price").value;
+
+    if(name === "" || price === ""){
+        alert("Please enter product name and price!");
+        return;
+    }
+
+    alert("Product '" + name + "' posted successfully!");
+
+    document.getElementById("productName").value="";
+    document.getElementById("price").value="";
+    document.getElementById("description").value="";
+}
+
+function showSell(){
+    document.getElementById("sellSection")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+function searchProducts(){
+
+    let input =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+    let cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(function(card){
+
+        let name =
+            card.querySelector("h3")
+            .innerText.toLowerCase();
+
+        if(name.includes(input)){
+            card.style.display="block";
+        }
+        else{
+            card.style.display="none";
+        }
+
+    });
+}
+
+</script>
+
+</body>
+</html>
